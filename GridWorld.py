@@ -20,8 +20,8 @@ class GridWorld(object):
         self.height = 3
         self.width = 4
         self.action = ['up', 'down', 'left', 'right']
-        self.num_actions = len(self.action)
-        self.num_features = 2
+        self.n_action = len(self.action)
+        self.obs_dim = 2
         self.wall_pose = np.array([1, 1])
         self.neg_reward_pose = np.array([3, 1])
         self.pos_reward_pose = np.array([3, 2])
@@ -81,6 +81,7 @@ class GridWorld(object):
 
     # GridWorld 초기화
     def reset(self):
+        time.sleep(0.1)
         self.canvas.delete(self.agent)
         grid_start_pos = np.array([self.grid_size*0.5, self.grid_size*0.5])
         self.agent = self.canvas.create_oval(
@@ -122,7 +123,7 @@ class GridWorld(object):
         if mode == 'valid':
             return -0.04    
         else:
-            return 0
+            return -0
 
     # Action을 인자로 받아 유효한지 확인하고, 유효하다면 action에 따른 state update
     def update_state(self, action):
@@ -209,5 +210,5 @@ class GridWorld(object):
         return actions        
 
     def render(self):
-        time.sleep(0.01)
+        time.sleep(0.001)
         self.grid_world.update()
